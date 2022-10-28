@@ -1,22 +1,52 @@
+// class User {
+//     constructor(userId) {
+//         this.userId = userId;
+//         this.photos = [];
+//         this.followers = [];
+//         this.followees = [];
+//     }
+
+
+// }
+
 class Instagram {
     constructor() {
         // Write code here...
+
+        this.photos = [];
+        this.feed = {};
+
+        this.feed = (userId, photos) => {
+            {
+                this.userId = userId;
+                userId: [photos];
+            }
+        }
     }
 
     postPhoto(userId, photoId) {
-        // Write code here...
+        // Write code here..
+
+        this.users.push(userId)
+        this.feed[userId].push(photoId);
     }
 
     getFeed(userId) {
-        // Write code here...
+        // Write code here..
+
+        dear god please help
     }
 
     follow(followerId, followeeId) {
         // Write code here..
+
+
     }
 
     unfollow(followerId, followeeId) {
         // Write code here..
+
+
     }
 
 }
