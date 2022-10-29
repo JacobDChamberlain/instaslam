@@ -13,40 +13,35 @@ class Instagram {
     constructor() {
         // Write code here...
 
-        this.photos = [];
+        this.photos = {};
         this.feed = {};
+        this.followers = {};
+        this.followees = {};
 
-        this.feed = (userId, photos) => {
-            {
-                this.userId = userId;
-                userId: [photos];
-            }
-        }
     }
 
     postPhoto(userId, photoId) {
         // Write code here..
-
-        this.users.push(userId)
-        this.feed[userId].push(photoId);
+        this.photos[userId].push(photoId);
+        this.feed[userId].push(this.photos[userId]);
     }
 
     getFeed(userId) {
         // Write code here..
-
-        dear god please help
+        return this.feed[userId];
     }
 
     follow(followerId, followeeId) {
         // Write code here..
 
-
+        this.followers[followerId].push(followeeId);
     }
 
     unfollow(followerId, followeeId) {
         // Write code here..
 
-
+        // remove followeeId from list of followees
+        // which should be in this.followers[followerId]
     }
 
 }
