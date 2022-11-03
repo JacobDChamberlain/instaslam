@@ -9,21 +9,82 @@
 
 // }
 
+// class Instagram {
+//     constructor() {
+//         // Write code here...
+//     }
+
+//     postPhoto(userId, photoId) {
+//         // Write code here..
+//     }
+
+//     getFeed(userId) {
+//         // Write code here..
+//     }
+
+//     follow(followerId, followeeId) {
+//         // Write code here..
+//     }
+
+//     unfollow(followerId, followeeId) {
+//         // Write code here..
+//     }
+
+// }
+
+
+// class Instagram {
+//     constructor() {
+//         // Write code here...
+
+//         this.photos = {};
+//         this.feed = {};
+//         this.followers = {};
+//         this.followees = {};
+
+//     }
+
+//     postPhoto(userId, photoId) {
+//         // Write code here..
+//         this.photos[userId].push(photoId);
+//         this.feed[userId].push(this.photos[userId]);
+//     }
+
+//     getFeed(userId) {
+//         // Write code here..
+//         return this.feed[userId];
+//     }
+
+//     follow(followerId, followeeId) {
+//         // Write code here..
+
+//         this.followers[followerId].push(followeeId);
+//     }
+
+//     unfollow(followerId, followeeId) {
+//         // Write code here..
+
+//         // remove followeeId from list of followees
+//         // which should be in this.followers[followerId]
+//     }
+
+// }
+
 class Instagram {
     constructor() {
         // Write code here...
-
-        this.photos = {};
+        
         this.feed = {};
-        this.followers = {};
-        this.followees = {};
-
     }
 
     postPhoto(userId, photoId) {
         // Write code here..
-        this.photos[userId].push(photoId);
-        this.feed[userId].push(this.photos[userId]);
+
+        if (this.feed[userId] !== undefined) {
+            this.feed[userId].push(photoId);
+        } else {
+            this.feed[userId] = [photoId];
+        }
     }
 
     getFeed(userId) {
@@ -33,15 +94,10 @@ class Instagram {
 
     follow(followerId, followeeId) {
         // Write code here..
-
-        this.followers[followerId].push(followeeId);
     }
 
     unfollow(followerId, followeeId) {
         // Write code here..
-
-        // remove followeeId from list of followees
-        // which should be in this.followers[followerId]
     }
 
 }
