@@ -73,12 +73,14 @@
 class Instagram {
     constructor() {
         // Write code here...
-        
+
         this.feed = {};
     }
 
     postPhoto(userId, photoId) {
         // Write code here..
+
+        // O(n)
 
         if (this.feed[userId] !== undefined) {
             this.feed[userId].push(photoId);
@@ -89,6 +91,9 @@ class Instagram {
 
     getFeed(userId) {
         // Write code here..
+
+        // O(n)
+        
         return this.feed[userId];
     }
 
