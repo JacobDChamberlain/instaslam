@@ -9,6 +9,7 @@
 
 // }
 
+// no code
 // class Instagram {
 //     constructor() {
 //         // Write code here...
@@ -32,7 +33,7 @@
 
 // }
 
-
+// first attempt
 // class Instagram {
 //     constructor() {
 //         // Write code here...
@@ -93,7 +94,7 @@ class Instagram {
         // Write code here..
 
         // O(n)
-        
+
         return this.feed[userId];
     }
 
