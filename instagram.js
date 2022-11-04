@@ -1,96 +1,15 @@
-// class User {
-//     constructor(userId) {
-//         this.userId = userId;
-//         this.photos = [];
-//         this.followers = [];
-//         this.followees = [];
-//     }
-
-
-// }
-
-// no code
-// class Instagram {
-//     constructor() {
-//         // Write code here...
-//     }
-
-//     postPhoto(userId, photoId) {
-//         // Write code here..
-//     }
-
-//     getFeed(userId) {
-//         // Write code here..
-//     }
-
-//     follow(followerId, followeeId) {
-//         // Write code here..
-//     }
-
-//     unfollow(followerId, followeeId) {
-//         // Write code here..
-//     }
-
-// }
-
-// first attempt
-// class Instagram {
-//     constructor() {
-//         // Write code here...
-
-//         this.photos = {};
-//         this.feed = {};
-//         this.followers = {};
-//         this.followees = {};
-
-//     }
-
-//     postPhoto(userId, photoId) {
-//         // Write code here..
-//         this.photos[userId].push(photoId);
-//         this.feed[userId].push(this.photos[userId]);
-//     }
-
-//     getFeed(userId) {
-//         // Write code here..
-//         return this.feed[userId];
-//     }
-
-//     follow(followerId, followeeId) {
-//         // Write code here..
-
-//         this.followers[followerId].push(followeeId);
-//     }
-
-//     unfollow(followerId, followeeId) {
-//         // Write code here..
-
-//         // remove followeeId from list of followees
-//         // which should be in this.followers[followerId]
-//     }
-
-// }
-
 class Instagram {
     constructor() {
-        // Write code here...
-
         this.feed = {}; // where feed[userId] contains list of photos, sorted by date posted (photoId)
         this.photos = {}; // where photos[userId] contains list of photo ids
         this.followers = {}; // where followers[userId] contains list of userIds that userId follows
-        // this.datePosted = 0; // initial date of photo post, in order to sort photos in feed by date //* covered by photoId *//
     }
 
-    getAllPhotos() {
-        console.log(this.photos)
-    }
 
-    postPhoto(userId, photoId) {
-        // Write code here..
+    postPhoto(userId, photoId) {    //* TIME: O(n) (preliminary estimation)
+                                    //* SPACE: O()
 
-        // O(n) (preliminary estimation)
-
-
+        // helper to reduce repeated code:
         const addToFeed = (userId, photoId) => {
             if (this.feed[userId] !== undefined) {
                 this.feed[userId].push(photoId);
@@ -99,17 +18,7 @@ class Instagram {
             }
         }
 
-
-        // this.datePosted++;
-
-        // if (this.photos[userId] !== undefined) {
-        //     this.photos[userId].push([photoId, this.datePosted]);
-        //     addToFeed(userId, photoId);
-        // } else {
-        //     this.photos[userId] = [[photoId, this.datePosted]];
-        //     addToFeed(userId, photoId);
-        // }
-
+        // add to photos pojo AND to feed.
         if (this.photos[userId] !== undefined) {
             this.photos[userId].push(photoId);
             addToFeed(userId, photoId);
@@ -120,26 +29,21 @@ class Instagram {
 
     }
 
-    getFeed(userId) {
-        // Write code here..
 
-        // O(n) (preliminary estimation)
-
-        // get userId's followers
-        // get photos posted by userId's followers
-        // place in feed, return
-        //* 10 MOST RECENT photos *//
+    getFeed(userId) {       //* TIME: O(n) (preliminary estimation)
+                            //* SPACE: O()
 
         this.feed[userId].sort(); // sort by date added (photoId)
         this.feed[userId].reverse(); // newest photos first
 
-        console.log(this.feed[userId].slice(0,10));
+        // console.log(this.feed[userId].slice(0,10)); // (for debugging)
 
-        return this.feed[userId].slice(0, 10);
+        return this.feed[userId].slice(0, 10); // return 10 most recent photos
     }
 
-    follow(followerId, followeeId) {
-        // Write code here..
+
+    follow(followerId, followeeId) {        //* TIME: O(n) (preliminary estimation)
+                                            //* SPACE: O()
 
         // add followee to list of followerId's followers
         if (this.followers[followerId] !== undefined) {
@@ -161,8 +65,8 @@ class Instagram {
         }
     }
 
-    unfollow(followerId, followeeId) {
-        // Write code here..
+    unfollow(followerId, followeeId) {      //* TIME: O(n) (preliminary estimation)
+                                            //* SPACE: O()
 
         // remove followee from list of followerId's followers
         this.followers[followerId] = this.followers[followerId].filter(id => id !== followeeId);
