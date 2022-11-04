@@ -1,8 +1,8 @@
 class Instagram {
     constructor() {
         this.feed = {}; // where feed[userId] contains list of photos, sorted by date posted (photoId)
-        this.photos = {}; // where photos[userId] contains list of photo ids
-        this.followers = {}; // where followers[userId] contains list of userIds that userId follows
+        this.photos = {}; // where photos[userId] contains list of photo ids posted by userId
+        this.followers = {}; // where followers[userId] contains list of users that userId follows
     }
 
 
@@ -65,6 +65,7 @@ class Instagram {
         }
     }
 
+
     unfollow(followerId, followeeId) {      //* TIME: O(n) (preliminary estimation)
                                             //* SPACE: O()
 
@@ -74,7 +75,7 @@ class Instagram {
         // remove followee's photos from followerId's feed
         this.feed[followerId] = this.feed[followerId].filter(id => !this.photos[followeeId].includes(id))
     }
-
+    
 }
 
 // Test Case
