@@ -6,8 +6,8 @@ class Instagram {
     }
 
 
-    postPhoto(userId, photoId) {    //* TIME: O(n) (adding/removing to/from pojo is O(n), push is O(1))
-                                    //* SPACE: O(n)
+    postPhoto(userId, photoId) {    //* TIME: O(1) (adding/removing to/from pojo is O(1), push is O(1))
+                                    //* SPACE: O(n) where n is the length of userId and photoId
 
         // helper to reduce repeated code:
         const addToFeed = (userId, photoId) => {
@@ -30,8 +30,8 @@ class Instagram {
     }
 
 
-    getFeed(userId) {       //* TIME: O(nlogn) (adding/removing to/from pojo is O(n), sorting posts is O(nlogn))
-                            //* SPACE: O(n)
+    getFeed(userId) {       //* TIME: O(nlogn) (adding/removing to/from pojo is O(1), sorting posts is O(nlogn))
+                            //* SPACE: O(1)
 
         this.feed[userId].sort(); // sort by date added (photoId)
         this.feed[userId].reverse(); // newest photos first
@@ -42,8 +42,8 @@ class Instagram {
     }
 
 
-    follow(followerId, followeeId) {        //* TIME: O(n^2) (adding/removing to/from pojo is O(n), but doing it inside a for loop makes it O(n^2))
-                                            //* SPACE: O(n)
+    follow(followerId, followeeId) {        //* TIME: O(n) (adding/removing to/from pojo is O(1), but doing it inside a for loop makes it O(n), where n is num of followee photos)
+                                            //* SPACE: O(1)
 
         // add followee to list of followerId's followers
         if (this.followers[followerId] !== undefined) {
@@ -66,8 +66,8 @@ class Instagram {
     }
 
 
-    unfollow(followerId, followeeId) {      //* TIME: O(n) (adding/removing to/from pojo is O(n), filter is O(n))
-                                            //* SPACE: O(n)
+    unfollow(followerId, followeeId) {      //* TIME: O(n * m) (adding/removing to/from pojo is O(1), filter is O(n), includes is O(m)) (n is num followers, m is num photos)
+                                            //* SPACE: O(1)
 
         // remove followee from list of followerId's followers
         this.followers[followerId] = this.followers[followerId].filter(id => id !== followeeId);
