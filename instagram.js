@@ -75,16 +75,16 @@ class Instagram {
     constructor() {
         // Write code here...
 
-        this.feed = {}; // where feed[userId] contains list of photos, sorted by date posted
-        this.photos = {}; // where photos[userId] contains list of photo arrays, where photo[0] is photoId and photo[1] is datePosted
+        this.feed = {}; // where feed[userId] contains list of photos, sorted by date posted (photoId)
+        this.photos = {}; // where photos[userId] contains list of photo ids
         this.followers = {}; // where followers[userId] contains list of userIds that userId follows
-        this.datePosted = 0; // initial date of photo post, in order to sort photos in feed by date.
+        // this.datePosted = 0; // initial date of photo post, in order to sort photos in feed by date //* covered by photoId *//
     }
 
     postPhoto(userId, photoId) {
         // Write code here..
 
-        // O(n)
+        // O(n) (preliminary estimation)
 
 
         const addToFeed = (userId, photoId) => {
@@ -96,13 +96,21 @@ class Instagram {
         }
 
 
-        this.datePosted++;
+        // this.datePosted++;
+
+        // if (this.photos[userId] !== undefined) {
+        //     this.photos[userId].push([photoId, this.datePosted]);
+        //     addToFeed(userId, photoId);
+        // } else {
+        //     this.photos[userId] = [[photoId, this.datePosted]];
+        //     addToFeed(userId, photoId);
+        // }
 
         if (this.photos[userId] !== undefined) {
-            this.photos[userId].push([photoId, this.datePosted]);
+            this.photos[userId].push(photoId);
             addToFeed(userId, photoId);
         } else {
-            this.photos[userId] = [[photoId, this.datePosted]];
+            this.photos[userId] = [photoId];
             addToFeed(userId, photoId);
         }
 
@@ -111,13 +119,16 @@ class Instagram {
     getFeed(userId) {
         // Write code here..
 
-        // O(n)
+        // O(n) (preliminary estimation)
 
         // get userId's followers
         // get photos posted by userId's followers
         // place in feed, return
 
+        this.feed[userId].reverse(); // covers date posted by id
+
         console.log(this.feed[userId]);
+
         return this.feed[userId];
     }
 
@@ -131,7 +142,24 @@ class Instagram {
             this.followers[followerId] = [followeeId];
         }
 
-        // add follower's photos to followee's feed
+        // add followee's photos to follower's feed
+        const followeePhotos = this.photos[followeeId]; // get photos from followee
+
+        for (let i = 0; i < followeePhotos.length; i++) { // add to follower's feed
+            const photo = followeePhotos[i];
+            if (this.feed[followerId] !== undefined) {
+                this.feed[followerId].push(photo);
+            } else {
+                this.feed[followerId] = [photo];
+            }
+        }
+
+        // if (this.feed[followerId] !== undefined) {
+        //     this.feed[followerId].push(followeePhotos);
+        // } else {
+        //     this.feed[followerId] = [followeePhotos];
+        // }
+
     }
 
     unfollow(followerId, followeeId) {
@@ -139,6 +167,9 @@ class Instagram {
 
         // remove followee from list of followerId's followers
         this.followers[followerId] = this.followers[followerId].filter(id => id !== followeeId);
+
+        // remove followee's photos from followerId's feed
+        this.feed[followerId] = this.feed[followerId].filter(id => !this.photos[followeeId].includes(id))
     }
 
 }
@@ -151,16 +182,16 @@ instagram.getFeed(1) // returns [11]
 instagram.postPhoto(2, 12) // User with id=2 posts a photo with id=12
 instagram.getFeed(1) // returns [11]
 instagram.follow(1,2) // User 1 follows User 2
-// instagram.postPhoto(3, 13) // User with id=3 posts a photo with id=13
-// instagram.postPhoto(3, 14) // User with id=3 posts a photo with id=14
-// instagram.postPhoto(3, 15) // User with id=3 posts a photo with id=15
-// instagram.postPhoto(3, 16) // User with id=3 posts a photo with id=16
-// instagram.postPhoto(3, 17) // User with id=3 posts a photo with id=17
-// instagram.postPhoto(3, 18) // User with id=3 posts a photo with id=18
-// instagram.postPhoto(3, 19) // User with id=3 posts a photo with id=19
-// instagram.getFeed(2) // returns [12]
-// instagram.follow(2,3) // User 2 follows User 3
-// instagram.getFeed(2) // returns [19, 18, 17, 16, 15, 14, 13, 12]
+instagram.postPhoto(3, 13) // User with id=3 posts a photo with id=13
+instagram.postPhoto(3, 14) // User with id=3 posts a photo with id=14
+instagram.postPhoto(3, 15) // User with id=3 posts a photo with id=15
+instagram.postPhoto(3, 16) // User with id=3 posts a photo with id=16
+instagram.postPhoto(3, 17) // User with id=3 posts a photo with id=17
+instagram.postPhoto(3, 18) // User with id=3 posts a photo with id=18
+instagram.postPhoto(3, 19) // User with id=3 posts a photo with id=19
+instagram.getFeed(2) // returns [12]
+instagram.follow(2,3) // User 2 follows User 3
+instagram.getFeed(2) // returns [19, 18, 17, 16, 15, 14, 13, 12]
 // instagram.postPhoto(4, 20) // User with id=4 posts a photo with id=20
 // instagram.postPhoto(4, 21) // User with id=4 posts a photo with id=21
 // instagram.postPhoto(4, 22) // User with id=4 posts a photo with id=22
