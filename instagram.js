@@ -6,8 +6,8 @@ class Instagram {
     }
 
 
-    postPhoto(userId, photoId) {    //* TIME: O(n) (preliminary estimation)
-                                    //* SPACE: O()
+    postPhoto(userId, photoId) {    //* TIME: O(n) (adding/removing to/from pojo is O(n), push is O(1))
+                                    //* SPACE: O(n)
 
         // helper to reduce repeated code:
         const addToFeed = (userId, photoId) => {
@@ -30,8 +30,8 @@ class Instagram {
     }
 
 
-    getFeed(userId) {       //* TIME: O(n) (preliminary estimation)
-                            //* SPACE: O()
+    getFeed(userId) {       //* TIME: O(nlogn) (adding/removing to/from pojo is O(n), sorting posts is O(nlogn))
+                            //* SPACE: O(n)
 
         this.feed[userId].sort(); // sort by date added (photoId)
         this.feed[userId].reverse(); // newest photos first
@@ -42,8 +42,8 @@ class Instagram {
     }
 
 
-    follow(followerId, followeeId) {        //* TIME: O(n) (preliminary estimation)
-                                            //* SPACE: O()
+    follow(followerId, followeeId) {        //* TIME: O(n^2) (adding/removing to/from pojo is O(n), but doing it inside a for loop makes it O(n^2))
+                                            //* SPACE: O(n)
 
         // add followee to list of followerId's followers
         if (this.followers[followerId] !== undefined) {
@@ -66,8 +66,8 @@ class Instagram {
     }
 
 
-    unfollow(followerId, followeeId) {      //* TIME: O(n) (preliminary estimation)
-                                            //* SPACE: O()
+    unfollow(followerId, followeeId) {      //* TIME: O(n) (adding/removing to/from pojo is O(n), filter is O(n))
+                                            //* SPACE: O(n)
 
         // remove followee from list of followerId's followers
         this.followers[followerId] = this.followers[followerId].filter(id => id !== followeeId);
@@ -75,7 +75,7 @@ class Instagram {
         // remove followee's photos from followerId's feed
         this.feed[followerId] = this.feed[followerId].filter(id => !this.photos[followeeId].includes(id))
     }
-    
+
 }
 
 // Test Case
