@@ -124,8 +124,12 @@ class Instagram {
         // get userId's followers
         // get photos posted by userId's followers
         // place in feed, return
+        //* 10 MOST RECENT photos *//
 
-        this.feed[userId].reverse(); // covers date posted by id
+        this.feed[userId].sort(); // sort by date added (photoId)
+        this.feed[userId].reverse(); // newest photos first
+        console.log("all->", this.feed[userId]); //* WHERE TF IS 12??? WHYYYYY *//
+        this.feed[userId] = this.feed[userId].slice(0,10); // 10 most recent
 
         console.log(this.feed[userId]);
 
@@ -144,6 +148,7 @@ class Instagram {
 
         // add followee's photos to follower's feed
         const followeePhotos = this.photos[followeeId]; // get photos from followee
+        // followeePhotos.reverse();
 
         for (let i = 0; i < followeePhotos.length; i++) { // add to follower's feed
             const photo = followeePhotos[i];
@@ -192,13 +197,13 @@ instagram.postPhoto(3, 19) // User with id=3 posts a photo with id=19
 instagram.getFeed(2) // returns [12]
 instagram.follow(2,3) // User 2 follows User 3
 instagram.getFeed(2) // returns [19, 18, 17, 16, 15, 14, 13, 12]
-// instagram.postPhoto(4, 20) // User with id=4 posts a photo with id=20
-// instagram.postPhoto(4, 21) // User with id=4 posts a photo with id=21
-// instagram.postPhoto(4, 22) // User with id=4 posts a photo with id=22
-// instagram.postPhoto(4, 23) // User with id=4 posts a photo with id=23
-// instagram.follow(2,4) // User 2 follows User 4
-// instagram.getFeed(2) // returns [23, 22, 21, 20, 19, 18, 17, 16, 15, 14]
-// instagram.unfollow(2,3) // User 2 unfollows User 3
-// instagram.getFeed(2) // returns [ 23, 22, 21, 20, 12 ]
-// instagram.unfollow(2,4) // User 2 unfollows User 4
-// instagram.getFeed(2) // returns [ 12 ]
+instagram.postPhoto(4, 20) // User with id=4 posts a photo with id=20
+instagram.postPhoto(4, 21) // User with id=4 posts a photo with id=21
+instagram.postPhoto(4, 22) // User with id=4 posts a photo with id=22
+instagram.postPhoto(4, 23) // User with id=4 posts a photo with id=23
+instagram.follow(2,4) // User 2 follows User 4
+instagram.getFeed(2) // returns [23, 22, 21, 20, 19, 18, 17, 16, 15, 14]
+instagram.unfollow(2,3) // User 2 unfollows User 3          //* WHERE IS 12 GOING?!? D: *//
+instagram.getFeed(2) // returns [ 23, 22, 21, 20, 12 ]      //*             ?           *//
+instagram.unfollow(2,4) // User 2 unfollows User 4          //*             ?           *//
+instagram.getFeed(2) // returns [ 12 ]                      //*             ?           *//
