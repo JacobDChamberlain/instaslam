@@ -131,11 +131,17 @@ class Instagram {
             this.followers[followerId] = [followeeId];
         }
 
+        console.log(this.followers[followerId]);
+
         // add follower's photos to followee's feed
     }
 
     unfollow(followerId, followeeId) {
         // Write code here..
+
+        // remove followee from list of followerId's followers
+        this.followers[followerId] = this.followers[followerId].filter(id => id !== followeeId);
+        console.log(this.followers[followerId]);
     }
 
 }
@@ -147,7 +153,7 @@ instagram.postPhoto(1,11) // User with id=1 posts a photo with id=11
 instagram.getFeed(1) // returns [11]
 instagram.postPhoto(2, 12) // User with id=2 posts a photo with id=12
 instagram.getFeed(1) // returns [11]
-// instagram.follow(1,2) // User 1 follows User 2
+instagram.follow(1,2) // User 1 follows User 2
 // instagram.postPhoto(3, 13) // User with id=3 posts a photo with id=13
 // instagram.postPhoto(3, 14) // User with id=3 posts a photo with id=14
 // instagram.postPhoto(3, 15) // User with id=3 posts a photo with id=15
