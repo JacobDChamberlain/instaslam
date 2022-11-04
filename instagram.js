@@ -131,8 +131,6 @@ class Instagram {
             this.followers[followerId] = [followeeId];
         }
 
-        console.log(this.followers[followerId]);
-
         // add follower's photos to followee's feed
     }
 
@@ -141,7 +139,6 @@ class Instagram {
 
         // remove followee from list of followerId's followers
         this.followers[followerId] = this.followers[followerId].filter(id => id !== followeeId);
-        console.log(this.followers[followerId]);
     }
 
 }
